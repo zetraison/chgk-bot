@@ -39,7 +39,10 @@ func (d *database) GetQuestion() (*Question, error) {
 	if err != nil {
 		return nil, err
 	}
-	return packet.Questions[0], nil
+	if len(packet.Questions) > 0 {
+		return packet.Questions[0], nil
+	}
+	return nil, fmt.Errorf("Packet is empty\n")
 }
 
 // GetQuestion returns random questions packet from storage with limit
