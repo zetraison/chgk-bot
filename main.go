@@ -10,6 +10,7 @@ import (
 )
 
 const (
+	startCommand     = "start"
 	helpCommand      = "help"
 	openMenuCommand  = "openmenu"
 	closeMenuCommand = "closemenu"
@@ -37,7 +38,10 @@ func showHelp() string {
 		"/question - получить случайный вопрос\n" +
 		"/openmenu - открыть меню\n" +
 		"/closemenu - закрыть меню\n" +
-		"/score - получить ваш результат\n"
+		"/score - получить ваш результат\n\n" +
+		"Правила:\n" +
+		"После получения нового вопроса необходимо придумать и отправить ответ в течении 1 минуты. " +
+		"На ответ дается 1 попытка"
 }
 
 func main() {
@@ -89,6 +93,8 @@ func main() {
 
 		if update.Message.IsCommand() {
 			switch update.Message.Command() {
+			case startCommand:
+				message = tgbotapi.NewMessage(update.Message.Chat.ID, showHelp())
 			case helpCommand:
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, showHelp())
 			case openMenuCommand:
