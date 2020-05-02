@@ -17,7 +17,7 @@ const (
 	scoreCommand     = "score"
 
 	trueMessage           = "Верно!"
-	falseMessage          = "К сожалению, dаш ответ неверный. Правильный ответ: %s"
+	falseMessage          = "К сожалению, ваш ответ неверный. Правильный ответ: %s"
 	roundComplete         = "Время истекло. Правильный ответ: %s"
 	yourResult            = "Ваш результат"
 	unknownCommandMessage = "Неизвестная команда"
@@ -42,7 +42,6 @@ func showHelp() string {
 
 func main() {
 	var question *Question
-	var score map[string]int
 	var message tgbotapi.MessageConfig
 	var roundTimer, warningTimer *time.Timer
 
@@ -79,6 +78,7 @@ func main() {
 	)
 
 	db := NewDatabase(chgkGame)
+	score := make(map[string]int, 0)
 
 	for update := range updates {
 		if update.Message == nil {
