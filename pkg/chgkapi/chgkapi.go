@@ -1,19 +1,11 @@
-package main
+package chgkapi
 
 import (
 	"encoding/xml"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
-)
-
-const (
-	chgkGame      = 1 // Что? Где? Когда?
-	brainRingGame = 2 // Брейн-ринг
-	internetGame  = 3 // Интернет вопросы
-	winglessGame  = 4 // Бескрылка
-	ownGame       = 5 // Своя игра
-	scholarGame   = 2 // Эрудитка
 )
 
 type Database interface {
@@ -22,14 +14,14 @@ type Database interface {
 }
 
 type database struct {
-	baseUrl  string
-	gameType int
+	baseUrl string
+	mode    int
 }
 
-func NewDatabase(gameType int) Database {
+func NewDatabase(mode int) Database {
 	return &database{
-		baseUrl:  "https://db.chgk.info",
-		gameType: gameType,
+		baseUrl: "https://db.chgk.info",
+		mode:    mode,
 	}
 }
 
@@ -40,7 +32,11 @@ func (d *database) GetQuestion() (*Question, error) {
 		return nil, err
 	}
 	if len(packet.Questions) > 0 {
-		return packet.Questions[0], nil
+		question := packet.Questions[0]
+
+		log.Print(question.String())
+
+		return question, nil
 	}
 	return nil, fmt.Errorf("Packet is empty\n")
 }
@@ -72,20 +68,23 @@ func (d *database) loadPacket(limit int) (packet *Packet, err error) {
 
 // buildUrl returns http url
 func (d *database) buildUrl(limit int) string {
-	return fmt.Sprintf(d.baseUrl+"/xml/random/types%d/limit%d", d.gameType, limit)
+	return fmt.Sprintf(d.baseUrl+"/xml/random/types%d/limit%d", d.mode, limit)
 }
 
 // request executes http request and read response body
 func (d *database) request(url string) ([]byte, error) {
 	resp, err := http.Get(url)
+
+	log.Printf("request: %s\n", url)
+
 	if err != nil {
-		return nil, fmt.Errorf("Error on get response!\n")
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("Error on read response body!\n")
+		return nil, err
 	}
 	return body, nil
 }

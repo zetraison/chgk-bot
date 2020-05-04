@@ -1,8 +1,8 @@
-package main
+package util
 
 import "strings"
 
-func compareString(s1 string, s2 string) bool {
+func CompareStrings(s1 string, s2 string) bool {
 	s1 = strings.ToLower(s1)
 	s2 = strings.ToLower(s2)
 
