@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-telegram-bot-api/telegram-bot-api"
 
-	"chgk-telegram-bot/internal/game"
+	"chgk-bot/internal/app"
 )
 
 func getUpdates(bot *tgbotapi.BotAPI) tgbotapi.UpdatesChannel {
@@ -43,7 +43,7 @@ func main() {
 		panic(err)
 	}
 
-	game := game.NewGame(bot)
+	game := app.NewGame(bot)
 
 	updates := getUpdates(bot)
 	// main messages loop

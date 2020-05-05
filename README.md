@@ -1,4 +1,4 @@
-# chgk-telegram-bot
+# chgk-bot
 Telegram Bot based on http://db.chgk.info questions database
 
-![Go](https://github.com/zetraison/chgk-telegram-bot/workflows/Go/badge.svg)
+![Go](https://github.com/zetraison/chgk-bot/workflows/Go/badge.svg)

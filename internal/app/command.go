@@ -1,11 +1,11 @@
-package game
+package app
 
 const (
 	Start    = "start"
 	Help     = "help"
 	Question = "question"
 	Round    = "round"
-	Exit     = "exit"
+	Stop     = "stop"
 	Score    = "score"
 )
 
@@ -14,6 +14,6 @@ func getCommandDescription() string {
 		"/help - показать список доступных команд\n" +
 		"/question - получить случайный вопрос\n" +
 		"/round - начать раунд из 10 вопросов\n" +
-		"/exit - прервать раунд\n" +
+		"/stop - прервать раунд из 10 вопросов\n" +
 		"/score - получить ваш результат\n"
 }

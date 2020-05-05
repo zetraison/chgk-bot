@@ -1,4 +1,4 @@
-module chgk-telegram-bot
+module chgk-bot
 
 go 1.14
 
