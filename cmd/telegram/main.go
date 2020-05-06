@@ -1,6 +1,7 @@
 package main
 
 import (
+	"chgk-bot/internal/bot"
 	"log"
 	"os"
 	"time"
@@ -38,14 +39,11 @@ func main() {
 		panic("TELEGRAM_API_TOKEN env not set!")
 	}
 
-	bot, err := tgbotapi.NewBotAPI(token)
-	if err != nil {
-		panic(err)
-	}
-
+	bot := bot.GetBot(bot.Telegram, token)
 	game := app.NewGame(bot)
 
-	updates := getUpdates(bot)
+	updates := bot.GetUpdates().(tgbotapi.UpdatesChannel)
+
 	// main messages loop
 	for update := range updates {
 		if update.Message == nil {
