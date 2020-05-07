@@ -5,7 +5,7 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/mail-ru-im/bot-golang"
+	botgolang "github.com/mail-ru-im/bot-golang"
 )
 
 type icqBot struct {
@@ -22,6 +22,7 @@ func NewIcqBot(token string) Bot {
 	}
 }
 
+// Send sends message with text to chat with chatID
 func (b icqBot) Send(chatID int64, text string) {
 	message := b.bot.NewTextMessage(strconv.FormatInt(chatID, 10), text)
 	err := message.Send()
@@ -30,7 +31,8 @@ func (b icqBot) Send(chatID int64, text string) {
 	}
 }
 
-func (b icqBot) GetUpdates() interface{} {
+// Updates returns a channel, which will be filled with events
+func (b icqBot) Updates() interface{} {
 	ctx, _ := context.WithCancel(context.Background())
 
 	updates := b.bot.GetUpdatesChannel(ctx)

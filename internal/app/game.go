@@ -1,11 +1,11 @@
 package app
 
 import (
-	"chgk-bot/internal/bot"
 	"fmt"
 	"log"
 	"time"
 
+	"chgk-bot/internal/bot"
 	"chgk-bot/internal/util"
 	"chgk-bot/pkg/chgkapi"
 )
@@ -37,9 +37,9 @@ type Game interface {
 
 type game struct {
 	db           chgkapi.Database
+	bot          bot.Bot
 	question     chan *chgkapi.Question
 	score        map[string]int
-	bot          bot.Bot
 	warningTimer *time.Timer
 	roundTimer   *time.Timer
 }

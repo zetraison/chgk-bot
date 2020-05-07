@@ -1,8 +1,6 @@
 package bot
 
-import (
-	"log"
-)
+import "log"
 
 type Type int
 
@@ -11,6 +9,14 @@ const (
 	ICQ
 )
 
+type Bot interface {
+	// Send sends message with text to chat with chatID
+	Send(chatID int64, text string)
+	// Updates returns a channel, which will be filled with events
+	Updates() interface{}
+}
+
+// GetBot returns bot provider
 func GetBot(botType Type, token string) Bot {
 	switch botType {
 	case Telegram:

@@ -1,19 +1,15 @@
 package main
 
 import (
-	"chgk-bot/internal/app"
-	"chgk-bot/internal/bot"
-	"fmt"
 	"log"
 	"os"
 	"strconv"
 	"strings"
 
-	//"strings"
-	//"time"
-
 	"github.com/mail-ru-im/bot-golang"
-	//"chgk-bot/internal/app"
+
+	"chgk-bot/internal/app"
+	"chgk-bot/internal/bot"
 )
 
 func main() {
@@ -22,10 +18,10 @@ func main() {
 		panic("ICQ_BOT_TOKEN env not set!")
 	}
 
-	bot := bot.GetBot(bot.ICQ, token)
-	game := app.NewGame(bot)
+	icqBot := bot.GetBot(bot.ICQ, token)
+	game := app.NewGame(icqBot)
 
-	updates := bot.GetUpdates().(<-chan botgolang.Event)
+	updates := icqBot.Updates().(<-chan botgolang.Event)
 
 	// main messages loop
 	for update := range updates {
@@ -35,7 +31,7 @@ func main() {
 
 		chatID, err := strconv.ParseInt(update.Payload.Chat.ID, 10, 64)
 		if err != nil {
-			fmt.Printf("Can not parse chatID")
+			log.Printf("Can not parse chatID")
 			continue
 		}
 		username := update.Payload.From.FirstName

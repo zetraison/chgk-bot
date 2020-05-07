@@ -21,15 +21,16 @@ func NewTelegramBot(token string) Bot {
 	}
 }
 
+// Send sends message with text to chat with chatID
 func (b telegramBot) Send(chatID int64, text string) {
 	if _, err := b.bot.Send(tgbotapi.NewMessage(chatID, text)); err != nil {
 		log.Printf("Error on send message: %s", err.Error())
 	}
 }
 
-func (b telegramBot) GetUpdates() interface{} {
-	log.Printf("Connect to Bot %s", b.bot.Self.UserName)
-	//bot.Debug = true
+// Updates returns a channel, which will be filled with events
+func (b telegramBot) Updates() interface{} {
+	//b.bot.Debug = true
 
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
@@ -38,6 +39,8 @@ func (b telegramBot) GetUpdates() interface{} {
 	if err != nil {
 		panic(err)
 	}
+
+	log.Printf("Connect to Bot %s", b.bot.Self.UserName)
 
 	// Optional: wait for updates and clear them if you don't want to handle
 	// a large backlog of old messages
