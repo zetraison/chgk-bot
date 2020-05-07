@@ -30,8 +30,11 @@ jobs:
             dep ensure
         fi
 
-    - name: Build
-      run: go build -v .
+    - name: Build Telegram Bot
+      run: go build -v ./cmd/telegram
+
+    - name: Build ICQ Bot
+      run: go build -v ./cmd/icq
 
     - name: Test
-      run: go test -v .
+      run: go test -v ./internal/... && go test -v ./pkg/...

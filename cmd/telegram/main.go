@@ -3,34 +3,12 @@ package main
 import (
 	"log"
 	"os"
-	"time"
 
 	"github.com/go-telegram-bot-api/telegram-bot-api"
 
 	"chgk-bot/internal/app"
+	"chgk-bot/internal/bot"
 )
-
-func getUpdates(bot *tgbotapi.BotAPI) tgbotapi.UpdatesChannel {
-	log.Printf("Connect to Bot %s", bot.Self.UserName)
-	//bot.Debug = true
-
-	u := tgbotapi.NewUpdate(0)
-	u.Timeout = 60
-
-	updates, err := bot.GetUpdatesChan(u)
-	if err != nil {
-		panic(err)
-	}
-
-	// Optional: wait for updates and clear them if you don't want to handle
-	// a large backlog of old messages
-	time.Sleep(time.Millisecond * 500)
-	updates.Clear()
-
-	log.Printf("Old messages cleared from updates")
-
-	return updates
-}
 
 func main() {
 	token := os.Getenv("TELEGRAM_API_TOKEN")
@@ -38,14 +16,11 @@ func main() {
 		panic("TELEGRAM_API_TOKEN env not set!")
 	}
 
-	bot, err := tgbotapi.NewBotAPI(token)
-	if err != nil {
-		panic(err)
-	}
+	telegramBot := bot.GetBot(bot.Telegram, token)
+	game := app.NewGame(telegramBot)
 
-	game := app.NewGame(bot)
+	updates := telegramBot.Updates().(tgbotapi.UpdatesChannel)
 
-	updates := getUpdates(bot)
 	// main messages loop
 	for update := range updates {
 		if update.Message == nil {

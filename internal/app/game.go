@@ -5,10 +5,9 @@ import (
 	"log"
 	"time"
 
+	"chgk-bot/internal/bot"
 	"chgk-bot/internal/util"
 	"chgk-bot/pkg/chgkapi"
-
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
 const (
@@ -25,8 +24,8 @@ const (
 		"- В режиме игры (/round), стартует цикл из 10 вопросов, в котором необходимо в течении 2х минут придумать и " +
 		"отправить ответ на каждый вопрос. Интервал между вопросами 1 минута"
 
-	warningTime     = time.Second * 8  //50
-	roundTime       = time.Second * 10 //60
+	warningTime     = time.Second * 50
+	roundTime       = time.Second * 60
 	questionInRound = 3
 )
 
@@ -38,14 +37,14 @@ type Game interface {
 
 type game struct {
 	db           chgkapi.Database
+	bot          bot.Bot
 	question     chan *chgkapi.Question
 	score        map[string]int
-	bot          *tgbotapi.BotAPI
 	warningTimer *time.Timer
 	roundTimer   *time.Timer
 }
 
-func NewGame(bot *tgbotapi.BotAPI) Game {
+func NewGame(bot bot.Bot) Game {
 	return &game{
 		db:       chgkapi.NewDatabase(chgkapi.ChgkGame),
 		question: make(chan *chgkapi.Question, 1),
@@ -173,7 +172,5 @@ func (g *game) sendDescription(chatID int64) {
 
 // sendMessage sends message to chat by chatID
 func (g *game) sendMessage(chatID int64, text string) {
-	if _, err := g.bot.Send(tgbotapi.NewMessage(chatID, text)); err != nil {
-		log.Printf("Error on send message: %s", err.Error())
-	}
+	g.bot.Send(chatID, text)
 }
