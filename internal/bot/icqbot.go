@@ -34,9 +34,8 @@ func (b icqBot) Send(chatID int64, text string) {
 
 // Updates returns a channel, which will be filled with events
 func (b icqBot) Updates() interface{} {
-	ctx, _ := context.WithCancel(context.Background())
 
-	updates := b.bot.GetUpdatesChannel(ctx)
+	updates := b.bot.GetUpdatesChannel(context.TODO())
 	if updates != nil {
 		log.Println("Bot started")
 	}
