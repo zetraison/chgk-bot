@@ -2,7 +2,8 @@ package util
 
 import "strings"
 
-func CompareStrings(s1 string, s2 string) bool {
+// CompareStrings compares two strings for identity
+func CompareStrings(s1, s2 string) bool {
 	s1 = strings.ToLower(s1)
 	s2 = strings.ToLower(s2)
 
@@ -10,7 +11,7 @@ func CompareStrings(s1 string, s2 string) bool {
 		return true
 	}
 
-	//trim all special characters
+	// trim all special characters
 	specialCharacters := ".,'\"-_!?:;+=()*[]@#$%^&"
 
 	s1 = strings.TrimSpace(s1)
@@ -18,9 +19,5 @@ func CompareStrings(s1 string, s2 string) bool {
 	s2 = strings.TrimSpace(s2)
 	s2 = strings.Trim(s2, specialCharacters)
 
-	if s1 == s2 {
-		return true
-	}
-
-	return false
+	return s1 == s2
 }

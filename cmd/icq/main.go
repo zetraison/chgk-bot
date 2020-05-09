@@ -6,14 +6,15 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/mail-ru-im/bot-golang"
+	botgolang "github.com/mail-ru-im/bot-golang"
+
 	"github.com/zetraison/chgk-bot/internal/app"
 	"github.com/zetraison/chgk-bot/internal/bot"
 )
 
 func main() {
 	token := os.Getenv("BOT_TOKEN")
-	if len(token) == 0 {
+	if token == "" {
 		panic("BOT_TOKEN env not set!")
 	}
 

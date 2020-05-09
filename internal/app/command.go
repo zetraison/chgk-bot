@@ -1,17 +1,17 @@
 package app
 
 const (
-	// show help info command (on bot start)
+	// Start shows help info (on bot start)
 	Start = "start"
-	// show help info command
+	// Help shows help info
 	Help = "help"
-	// send random question command
+	// Question sends random question
 	Question = "question"
-	// start round of game
+	// Round starts round of game
 	Round = "round"
-	// stop round of game
+	// Stop stops round of game
 	Stop = "stop"
-	// show results
+	// Score shows results
 	Score = "score"
 )
 
