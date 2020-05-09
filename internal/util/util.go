@@ -11,16 +11,12 @@ func CompareStrings(s1 string, s2 string) bool {
 	}
 
 	//trim all special characters
-	specialCharacters := []string{".", ",", "'", "\"", "-", "_", "!", "?", ":", ";", "+", "=", "(", ")", "*", "[", "]", "@", "#", "$", "%", "^", "&"}
+	specialCharacters := ".,'\"-_!?:;+=()*[]@#$%^&"
 
 	s1 = strings.TrimSpace(s1)
-	for _, c := range specialCharacters {
-		s1 = strings.Trim(s1, c)
-	}
+	s1 = strings.Trim(s1, specialCharacters)
 	s2 = strings.TrimSpace(s2)
-	for _, c := range specialCharacters {
-		s2 = strings.Trim(s2, c)
-	}
+	s2 = strings.Trim(s2, specialCharacters)
 
 	if s1 == s2 {
 		return true

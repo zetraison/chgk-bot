@@ -10,7 +10,7 @@ const (
 )
 
 type Bot interface {
-	// Send sends message with text to chat with chatID
+	// Send sends a message with text to chat with chatID passed as an argument
 	Send(chatID int64, text string)
 	// Updates returns a channel, which will be filled with events
 	Updates() interface{}
