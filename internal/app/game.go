@@ -5,9 +5,9 @@ import (
 	"log"
 	"time"
 
-	"chgk-bot/internal/bot"
-	"chgk-bot/internal/util"
-	"chgk-bot/pkg/chgkapi"
+	"github.com/zetraison/chgk-bot/internal/bot"
+	"github.com/zetraison/chgk-bot/internal/util"
+	"github.com/zetraison/chgk-bot/pkg/database"
 )
 
 const (
@@ -29,6 +29,7 @@ const (
 	questionInRound = 3
 )
 
+// Game describes available game functions
 type Game interface {
 	Active() bool
 	HandleCommand(chatID int64, username, command string)
@@ -36,24 +37,26 @@ type Game interface {
 }
 
 type game struct {
-	db           chgkapi.Database
+	db           database.Database
 	bot          bot.Bot
-	question     chan *chgkapi.Question
+	question     chan *database.Question
 	score        map[string]int
 	warningTimer *time.Timer
 	roundTimer   *time.Timer
 }
 
+// NewGame returns new game instance
 func NewGame(bot bot.Bot) Game {
 	return &game{
-		db:       chgkapi.NewDatabase(chgkapi.ChgkGame),
-		question: make(chan *chgkapi.Question, 1),
+		db:       database.NewDatabase(database.ChgkGame),
+		question: make(chan *database.Question, 1),
 		score:    make(map[string]int, 0),
 		bot:      bot,
 	}
 }
 
-// Active returns active game status (game active where questions pool channel is not empty)
+// Active returns active game status.
+// Game active where questions pool channel is not empty
 func (g *game) Active() bool {
 	return len(g.question) > 0
 }

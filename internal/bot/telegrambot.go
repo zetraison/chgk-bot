@@ -11,6 +11,7 @@ type telegramBot struct {
 	bot *tgbotapi.BotAPI
 }
 
+// NewTelegramBot returns new bot instance
 func NewTelegramBot(token string) Bot {
 	bot, err := tgbotapi.NewBotAPI(token)
 	if err != nil {
@@ -21,7 +22,7 @@ func NewTelegramBot(token string) Bot {
 	}
 }
 
-// Send sends message with text to chat with chatID
+// Send sends a message with text to chat with chatID passed as an argument
 func (b telegramBot) Send(chatID int64, text string) {
 	if _, err := b.bot.Send(tgbotapi.NewMessage(chatID, text)); err != nil {
 		log.Printf("Error on send message: %s", err.Error())

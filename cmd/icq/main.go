@@ -7,15 +7,14 @@ import (
 	"strings"
 
 	"github.com/mail-ru-im/bot-golang"
-
-	"chgk-bot/internal/app"
-	"chgk-bot/internal/bot"
+	"github.com/zetraison/chgk-bot/internal/app"
+	"github.com/zetraison/chgk-bot/internal/bot"
 )
 
 func main() {
-	token := os.Getenv("ICQ_BOT_TOKEN")
+	token := os.Getenv("BOT_TOKEN")
 	if len(token) == 0 {
-		panic("ICQ_BOT_TOKEN env not set!")
+		panic("BOT_TOKEN env not set!")
 	}
 
 	icqBot := bot.GetBot(bot.ICQ, token)

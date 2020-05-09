@@ -5,15 +5,14 @@ import (
 	"os"
 
 	"github.com/go-telegram-bot-api/telegram-bot-api"
-
-	"chgk-bot/internal/app"
-	"chgk-bot/internal/bot"
+	"github.com/zetraison/chgk-bot/internal/app"
+	"github.com/zetraison/chgk-bot/internal/bot"
 )
 
 func main() {
-	token := os.Getenv("TELEGRAM_API_TOKEN")
+	token := os.Getenv("BOT_TOKEN")
 	if len(token) == 0 {
-		panic("TELEGRAM_API_TOKEN env not set!")
+		panic("BOT_TOKEN env not set!")
 	}
 
 	telegramBot := bot.GetBot(bot.Telegram, token)

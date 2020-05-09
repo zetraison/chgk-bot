@@ -1,4 +1,4 @@
-package chgkapi
+package database
 
 import (
 	"encoding/xml"
@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// Database describes available database functions
 type Database interface {
 	GetQuestion() (*Question, error)
 	GetQuestionPacket(limit int) (*Packet, error)
@@ -18,6 +19,7 @@ type database struct {
 	mode    int
 }
 
+// NewDatabase returns new database api instance
 func NewDatabase(mode int) Database {
 	return &database{
 		baseUrl: "https://db.chgk.info",

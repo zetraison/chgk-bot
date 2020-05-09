@@ -1,12 +1,18 @@
 package app
 
 const (
-	Start    = "start"
-	Help     = "help"
+	// show help info command (on bot start)
+	Start = "start"
+	// show help info command
+	Help = "help"
+	// send random question command
 	Question = "question"
-	Round    = "round"
-	Stop     = "stop"
-	Score    = "score"
+	// start round of game
+	Round = "round"
+	// stop round of game
+	Stop = "stop"
+	// show results
+	Score = "score"
 )
 
 func getCommandDescription() string {
