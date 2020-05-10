@@ -5,6 +5,8 @@ github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible h1:2cauKuaEL
 github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible/go.mod h1:qf9acutJ8cwBUhm1bqgz6Bei9/C/c93FPDljKWwsOgM=
 github.com/hako/durafmt v0.0.0-20190612201238-650ed9f29a84 h1:RvcDqcKLua4b/jtXez7ZVe9s6Iq5N6ujVevqY4FBQmM=
 github.com/hako/durafmt v0.0.0-20190612201238-650ed9f29a84/go.mod h1:5Scbynm8dF1XAPwIwkGPqzkM/shndPm79Jd1003hTjE=
+github.com/joho/godotenv v1.3.0 h1:Zjp+RcGpHhGlrMbJzXTrZZPrWj+1vfm90La1wgB6Bhc=
+github.com/joho/godotenv v1.3.0/go.mod h1:7hK45KPybAkOC6peb+G5yklZfMxEjkZhHbwpqxOKXbg=
 github.com/konsorten/go-windows-terminal-sequences v1.0.1 h1:mweAR1A6xJ3oS2pRaGiHgQ4OO8tzTaLawm8vnODuwDk=
 github.com/konsorten/go-windows-terminal-sequences v1.0.1/go.mod h1:T0+1ngSBFLxvqU3pZ+m/2kptfBszLMUkC4ZK/EgS/cQ=
 github.com/mail-ru-im/bot-golang v0.0.0-20200417071339-a7da30e2afc3 h1:wxb/aVnmW1SF7p/kqvK75yog8wXXWOezbUhNn9aw4cc=

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/joho/godotenv"
 	"log"
 	"os"
 	"strconv"
@@ -13,9 +14,14 @@ import (
 )
 
 func main() {
-	token := os.Getenv("BOT_TOKEN")
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	token := os.Getenv("ICQ_BOT_TOKEN")
 	if token == "" {
-		panic("BOT_TOKEN env not set!")
+		panic("ICQ_BOT_TOKEN env not set!")
 	}
 
 	icqBot := bot.GetBot(bot.ICQ, token)

@@ -25,12 +25,8 @@ lint:
 	go vet -v ./...
 	golangci-lint run --fast
 
-run-icq:
-	@echo "Run icq bot.."
-	BOT_TOKEN=${ICQ_BOT_TOKEN}
+run_icq_bot:
 	go run cmd/icq/main.go
 
-run-telegram:
-	@echo "Run telegram bot.."
-	BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+run_telegram_bot:
 	go run cmd/telegram/main.go
