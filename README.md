@@ -4,3 +4,12 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/zetraison/chgk-bot)](https://goreportcard.com/report/github.com/zetraison/chgk-bot)
 
 Telegram Bot based on http://db.chgk.info questions database
+
+### Docker
+```bash
+docker run -it --rm -e TELEGRAM_BOT_TOKEN=<token> zetraison/chgk-telegram-bot
+```
+
+```bash
+docker run -it --rm -e ICQ_BOT_TOKEN=<token> zetraison/chgk-icq-bot
+```

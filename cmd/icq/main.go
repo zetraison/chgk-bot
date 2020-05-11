@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
 	"log"
 	"os"
 	"strconv"
 	"strings"
 
+	"github.com/joho/godotenv"
 	botgolang "github.com/mail-ru-im/bot-golang"
 
 	"github.com/zetraison/chgk-bot/internal/app"
@@ -16,7 +16,7 @@ import (
 func main() {
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatalf("Error loading .env file")
+		log.Printf("Error loading .env file")
 	}
 
 	token := os.Getenv("ICQ_BOT_TOKEN")

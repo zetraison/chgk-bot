@@ -18,3 +18,9 @@
 
 # Enviroment variables file
 .env
+
+# Binaries directory
+bin/
+
+# Archive directory
+archive/
