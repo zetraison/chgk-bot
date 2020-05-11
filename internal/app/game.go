@@ -46,12 +46,12 @@ type game struct {
 }
 
 // NewGame returns new game instance
-func NewGame(bot bot.Bot) Game {
+func NewGame(_bot bot.Bot) Game {
 	return &game{
 		db:       database.NewDatabase(database.ChgkGame),
 		question: make(chan *database.Question, 1),
-		score:    make(map[string]int, 0),
-		bot:      bot,
+		score:    make(map[string]int),
+		bot:      _bot,
 	}
 }
 

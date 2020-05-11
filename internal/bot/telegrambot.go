@@ -31,8 +31,6 @@ func (b telegramBot) Send(chatID int64, text string) {
 
 // Updates returns a channel, which will be filled with events
 func (b telegramBot) Updates() interface{} {
-	//b.bot.Debug = true
-
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
 
@@ -45,7 +43,7 @@ func (b telegramBot) Updates() interface{} {
 
 	// Optional: wait for updates and clear them if you don't want to handle
 	// a large backlog of old messages
-	time.Sleep(time.Millisecond * 500)
+	time.Sleep(time.Second)
 	updates.Clear()
 
 	log.Printf("Old messages cleared from updates")

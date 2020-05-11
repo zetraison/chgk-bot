@@ -2,13 +2,17 @@ package bot
 
 import "log"
 
+// Type bot provider type
 type Type int
 
 const (
+	// Telegram bot provider
 	Telegram Type = iota
+	// ICQ bot provider
 	ICQ
 )
 
+// Bot describes available bot functions
 type Bot interface {
 	// Send sends a message with text to chat with chatID passed as an argument
 	Send(chatID int64, text string)

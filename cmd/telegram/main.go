@@ -4,15 +4,22 @@ import (
 	"log"
 	"os"
 
-	"github.com/go-telegram-bot-api/telegram-bot-api"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
+	"github.com/joho/godotenv"
+
 	"github.com/zetraison/chgk-bot/internal/app"
 	"github.com/zetraison/chgk-bot/internal/bot"
 )
 
 func main() {
-	token := os.Getenv("BOT_TOKEN")
-	if len(token) == 0 {
-		panic("BOT_TOKEN env not set!")
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Printf("Error loading .env file")
+	}
+
+	token := os.Getenv("TELEGRAM_BOT_TOKEN")
+	if token == "" {
+		panic("TELEGRAM_BOT_TOKEN env not set!")
 	}
 
 	telegramBot := bot.GetBot(bot.Telegram, token)

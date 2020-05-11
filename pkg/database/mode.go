@@ -1,16 +1,16 @@
 package database
 
 const (
-	// "Что? Где? Когда?" game
+	// ChgkGame mode of game "Что? Где? Когда?"
 	ChgkGame = 1
-	// "Брейн-ринг" game
+	// BrainRingGame mode of game "Брейн-ринг"
 	BrainRingGame = 2
-	// Internet questions
+	// InternetGame mode of game with questions from internet
 	InternetGame = 3
-	// "Бескрылка" game
+	// WinglessGame mode of game "Бескрылка"
 	WinglessGame = 4
-	// "Своя игра" game
+	// OwnGame mode of game "Своя игра"
 	OwnGame = 5
-	// "Эрудитка" game
+	// ScholarGame mode of game "Эрудитка"
 	ScholarGame = 6
 )

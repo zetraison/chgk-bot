@@ -6,15 +6,22 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/mail-ru-im/bot-golang"
+	"github.com/joho/godotenv"
+	botgolang "github.com/mail-ru-im/bot-golang"
+
 	"github.com/zetraison/chgk-bot/internal/app"
 	"github.com/zetraison/chgk-bot/internal/bot"
 )
 
 func main() {
-	token := os.Getenv("BOT_TOKEN")
-	if len(token) == 0 {
-		panic("BOT_TOKEN env not set!")
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Printf("Error loading .env file")
+	}
+
+	token := os.Getenv("ICQ_BOT_TOKEN")
+	if token == "" {
+		panic("ICQ_BOT_TOKEN env not set!")
 	}
 
 	icqBot := bot.GetBot(bot.ICQ, token)
