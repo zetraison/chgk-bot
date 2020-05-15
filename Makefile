@@ -43,5 +43,8 @@ docker_run_telegram_bot:
 docker_run_icq_bot:
 	docker run -it --rm -e ICQ_BOT_TOKEN=<ICQ_BOT_TOKEN> --name chgk_icq_bot zetraison/chgk-icq-bot
 
-release:
+release_dry_run:
 	goreleaser --snapshot --skip-publish --rm-dist
+
+release:
+	goreleaser
