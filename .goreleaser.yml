@@ -79,6 +79,8 @@ changelog:
     exclude:
     - '^docs:'
     - '^test:'
+    - Merge pull request
+    - Merge branch
 
 dockers:
   - dockerfile: build/Dockerfile.telegram.releaser
