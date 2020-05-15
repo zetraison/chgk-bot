@@ -1,3 +1,6 @@
+include .env
+export
+
 # enable module support across all go commands.
 export GO111MODULE = on
 
@@ -38,10 +41,10 @@ docker_build:
 	docker build -f build/Dockerfile.icq -t zetraison/chgk-icq-bot .
 
 docker_run_telegram_bot:
-	docker run -it --rm -e TELEGRAM_BOT_TOKEN=<TELEGRAM_BOT_TOKEN> --name chgk_telegram_bot zetraison/chgk-telegram-bot
+	docker run -it --rm -e TELEGRAM_BOT_TOKEN=$(TELEGRAM_BOT_TOKEN) --name chgk_telegram_bot zetraison/chgk-telegram-bot
 
 docker_run_icq_bot:
-	docker run -it --rm -e ICQ_BOT_TOKEN=<ICQ_BOT_TOKEN> --name chgk_icq_bot zetraison/chgk-icq-bot
+	docker run -it --rm -e ICQ_BOT_TOKEN=$(ICQ_BOT_TOKEN) --name chgk_icq_bot zetraison/chgk-icq-bot
 
 release_dry_run:
 	goreleaser --snapshot --skip-publish --rm-dist
