@@ -22,6 +22,7 @@ compile:
 
 clean:
 	rm -rf bin
+	rm -rf dist
 
 lint:
 	golangci-lint run --fast
@@ -33,11 +34,14 @@ run_telegram_bot:
 	go run cmd/telegram/main.go
 
 docker_build:
-	docker build -f build/telegrambot/Dockerfile -t zetraison/chgk-telegram-bot .
-	docker build -f build/icqbot/Dockerfile -t zetraison/chgk-icq-bot .
+	docker build -f build/Dockerfile.telegram -t zetraison/chgk-telegram-bot .
+	docker build -f build/Dockerfile.icq -t zetraison/chgk-icq-bot .
 
 docker_run_telegram_bot:
 	docker run -it --rm -e TELEGRAM_BOT_TOKEN=<TELEGRAM_BOT_TOKEN> --name chgk_telegram_bot zetraison/chgk-telegram-bot
 
 docker_run_icq_bot:
 	docker run -it --rm -e ICQ_BOT_TOKEN=<ICQ_BOT_TOKEN> --name chgk_icq_bot zetraison/chgk-icq-bot
+
+release:
+	goreleaser --snapshot --skip-publish --rm-dist
