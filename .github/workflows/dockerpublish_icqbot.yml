@@ -1,4 +1,4 @@
-name: Docker
+name: Docker ICQ Bot
 
 on:
   push:
