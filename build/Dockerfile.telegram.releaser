@@ -1,0 +1,5 @@
+FROM golang:1.14
+
+COPY chgk-telegram-bot /usr/bin/
+
+CMD ["chgk-telegram-bot"]

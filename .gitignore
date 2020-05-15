@@ -21,6 +21,4 @@
 
 # Binaries directory
 bin/
-
-# Archive directory
-archive/
+dist/

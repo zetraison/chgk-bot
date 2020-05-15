@@ -1,12 +1,14 @@
 project_name: chgk-bot
 
-#release:
-#  github:
-#    owner: zetraison
-#    name: chgk-bot
+release:
+  github:
+    owner: zetraison
+    name: chgk-bot
 
 builds:
-  - binary: chgk-telegram-bot
+  - id: "chgk-telegram-bot"
+    binary: chgk-telegram-bot
+    main: ./cmd/telegram/main.go
     goos:
       - darwin
       - windows
@@ -28,7 +30,31 @@ builds:
       - goos: freebsd
         goarch: arm64
     ldflags: -s -w -X main.version={{.Version}} -X main.commit={{.ShortCommit}} -X main.date={{.Date}}
-    main: ./cmd/telegram/main.go
+
+  - id: "chgk-icq-bot"
+    binary: chgk-icq-bot
+    main: ./cmd/icq/main.go
+    goos:
+      - darwin
+      - windows
+      - linux
+      - freebsd
+    goarch:
+      - amd64
+      - arm64
+      - arm
+      - 386
+    goarm:
+      - 6
+      - 7
+    env:
+      - CGO_ENABLED=0
+    ignore:
+      - goos: darwin
+        goarch: 386
+      - goos: freebsd
+        goarch: arm64
+    ldflags: -s -w -X main.version={{.Version}} -X main.commit={{.ShortCommit}} -X main.date={{.Date}}
 
 archives:
   - format: tar.gz
@@ -55,9 +81,16 @@ changelog:
     - '^test:'
 
 dockers:
-  - dockerfile: build/Dockerfile.telegram
+  - dockerfile: build/Dockerfile.telegram.releaser
     binaries:
       - chgk-telegram-bot
     image_templates:
       - "zetraison/chgk-telegram-bot:latest"
       - "zetraison/chgk-telegram-bot:{{ .Tag }}"
+
+  - dockerfile: build/Dockerfile.icq.releaser
+    binaries:
+      - chgk-icq-bot
+    image_templates:
+      - "zetraison/chgk-icq-bot:latest"
+      - "zetraison/chgk-icq-bot:{{ .Tag }}"

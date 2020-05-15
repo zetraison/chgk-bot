@@ -1,0 +1,5 @@
+FROM golang:1.14
+
+COPY chgk-icq-bot /usr/bin/
+
+CMD ["chgk-icq-bot"]
