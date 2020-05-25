@@ -6,7 +6,7 @@
 ![Docker ICQ Bot](https://github.com/zetraison/chgk-bot/workflows/Docker%20ICQ%20Bot/badge.svg)
 
 
-Telegram Bot based on http://db.chgk.info questions database
+Telegram Bot based on http://db.chgk.info questions database.
 
 ## Features
 Chgk bot supports next commands:
@@ -19,7 +19,7 @@ Chgk bot supports next commands:
 - `/score` - shows results
 
 ## Building
-You need either Docker and make, or go in order to build binary
+You need either Docker and make, or go in order to build binary.
 
 ### Build with Go
 ```bash
@@ -46,20 +46,34 @@ make docker_build
 ```
 
 ## Running
-You need setup ENV variables $(TELEGRAM_BOT_TOKEN) and $(ICQ_BOT_TOKEN) in `.env` file or in your environment to run binaries
+You need setup ENV variables `$(TELEGRAM_BOT_TOKEN)` and `$(ICQ_BOT_TOKEN)` in `.env` file or in your environment to run binaries.
 
 ### Run with Go
 ```bash
-make docker_run_telegram_bot
+export TELEGRAM_BOT_TOKEN=$(TELEGRAM_BOT_TOKEN) go run cmd/telegram/main.go
 ```
 ```bash
+export ICQ_BOT_TOKEN=$(ICQ_BOT_TOKEN) go run cmd/icq/main.go
+```
+
+or
+
+```bash
+make docker_run_telegram_bot
 make docker_run_icq_bot
 ```
 
 ### Run with Docker
 ```bash
-docker run -it --rm -e TELEGRAM_BOT_TOKEN=<token> zetraison/chgk-telegram-bot
+docker run -it --rm -e TELEGRAM_BOT_TOKEN=$(TELEGRAM_BOT_TOKEN) zetraison/chgk-telegram-bot
 ```
 ```bash
-docker run -it --rm -e ICQ_BOT_TOKEN=<token> zetraison/chgk-icq-bot
+docker run -it --rm -e ICQ_BOT_TOKEN=$(ICQ_BOT_TOKEN) zetraison/chgk-icq-bot
+```
+
+or
+
+```bash
+make docker_run_telegram_bot
+make docker_run_icq_bot
 ```
