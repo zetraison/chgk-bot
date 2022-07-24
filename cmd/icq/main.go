@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/zetraison/chgk-bot/pkg/database"
 	"log"
 	"os"
 	"strconv"
@@ -25,7 +26,8 @@ func main() {
 	}
 
 	icqBot := bot.GetBot(bot.ICQ, token)
-	game := app.NewGame(icqBot)
+	chgkDB := database.NewDatabase(database.ChgkGame)
+	sessions := make(map[string]app.Game)
 
 	updates := icqBot.Updates().(<-chan botgolang.Event)
 
@@ -33,6 +35,15 @@ func main() {
 	for update := range updates {
 		if update.Payload.Message() == nil {
 			continue
+		}
+
+		var game app.Game
+		userID := update.Payload.From.ID
+		if v, ok := sessions[userID]; ok {
+			game = v
+		} else {
+			game = app.NewGame(icqBot, chgkDB)
+			sessions[userID] = game
 		}
 
 		chatID, err := strconv.ParseInt(update.Payload.Chat.ID, 10, 64)
