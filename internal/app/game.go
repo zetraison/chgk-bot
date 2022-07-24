@@ -24,8 +24,8 @@ const (
 		"- В режиме игры (/round), стартует цикл из 10 вопросов, в котором необходимо в течении 2х минут придумать и " +
 		"отправить ответ на каждый вопрос. Интервал между вопросами 1 минута"
 
-	warningTime     = time.Second * 50
-	roundTime       = time.Second * 60
+	thinkingTime    = time.Second * 50
+	finishTime      = time.Second * 10
 	questionInRound = 3
 )
 
@@ -37,18 +37,18 @@ type Game interface {
 }
 
 type game struct {
-	db           database.Database
-	bot          bot.Bot
-	question     chan *database.Question
-	score        map[string]int
-	warningTimer *time.Timer
-	roundTimer   *time.Timer
+	db            database.Database
+	bot           bot.Bot
+	question      chan *database.Question
+	score         map[string]int
+	thinkingTimer *time.Timer
+	finishTimer   *time.Timer
 }
 
 // NewGame returns new game instance
-func NewGame(_bot bot.Bot) Game {
+func NewGame(_bot bot.Bot, db database.Database) Game {
 	return &game{
-		db:       database.NewDatabase(database.ChgkGame),
+		db:       db,
 		question: make(chan *database.Question, 1),
 		score:    make(map[string]int),
 		bot:      _bot,
@@ -94,11 +94,11 @@ func (g *game) HandleCommand(chatID int64, username, command string) {
 func (g *game) CheckAnswer(chatID int64, username, answer string) {
 	question := <-g.question
 
-	if g.warningTimer != nil {
-		g.warningTimer.Stop()
+	if g.thinkingTimer != nil {
+		g.thinkingTimer.Stop()
 	}
-	if g.roundTimer != nil {
-		g.roundTimer.Stop()
+	if g.finishTimer != nil {
+		g.finishTimer.Stop()
 	}
 
 	equal := util.CompareStrings(answer, question.Answer)
@@ -129,12 +129,12 @@ func (g *game) sendQuestion(chatID int64) {
 	g.sendMessage(chatID, question.Question)
 	g.question <- question
 
-	g.warningTimer = time.NewTimer(warningTime)
-	<-g.warningTimer.C
+	g.thinkingTimer = time.NewTimer(thinkingTime)
+	<-g.thinkingTimer.C
 	g.sendMessage(chatID, endTimeMessage)
 
-	g.roundTimer = time.NewTimer(roundTime)
-	<-g.roundTimer.C
+	g.finishTimer = time.NewTimer(finishTime)
+	<-g.finishTimer.C
 	<-g.question
 	g.sendMessage(chatID, question.GetAnswer(roundCompleteMessage))
 }
@@ -150,12 +150,12 @@ func (g *game) startRound(chatID int64) {
 		g.sendMessage(chatID, question.Question)
 		g.question <- question
 
-		g.warningTimer = time.NewTimer(warningTime)
-		<-g.warningTimer.C
+		g.thinkingTimer = time.NewTimer(thinkingTime)
+		<-g.thinkingTimer.C
 		g.sendMessage(chatID, endTimeMessage)
 
-		g.roundTimer = time.NewTimer(roundTime)
-		<-g.roundTimer.C
+		g.finishTimer = time.NewTimer(finishTime)
+		<-g.finishTimer.C
 		<-g.question
 		g.sendMessage(chatID, question.GetAnswer(roundCompleteMessage))
 	}

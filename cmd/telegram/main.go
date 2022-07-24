@@ -9,6 +9,7 @@ import (
 
 	"github.com/zetraison/chgk-bot/internal/app"
 	"github.com/zetraison/chgk-bot/internal/bot"
+	"github.com/zetraison/chgk-bot/pkg/database"
 )
 
 func main() {
@@ -23,7 +24,8 @@ func main() {
 	}
 
 	telegramBot := bot.GetBot(bot.Telegram, token)
-	game := app.NewGame(telegramBot)
+	chgkDB := database.NewDatabase(database.ChgkGame)
+	sessions := make(map[int]app.Game)
 
 	updates := telegramBot.Updates().(tgbotapi.UpdatesChannel)
 
@@ -31,6 +33,15 @@ func main() {
 	for update := range updates {
 		if update.Message == nil {
 			continue
+		}
+
+		var game app.Game
+		userID := update.Message.From.ID
+		if v, ok := sessions[userID]; ok {
+			game = v
+		} else {
+			game = app.NewGame(telegramBot, chgkDB)
+			sessions[userID] = game
 		}
 
 		chatID := update.Message.Chat.ID
